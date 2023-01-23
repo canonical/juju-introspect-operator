@@ -1,7 +1,7 @@
 # Copyright 2022 Jon Seager
 # See LICENSE file for licensing details.
 
-"""Representative of a systemd service for juju-instrospect."""
+"""Control a systemd service for juju-instrospect."""
 
 import os
 import shutil
