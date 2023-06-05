@@ -7,16 +7,14 @@
 import logging
 from subprocess import CalledProcessError, check_call
 
+import ops
 from charms.parca.v0.parca_scrape import ProfilingEndpointProvider
 from jujuintrospect import JujuIntrospect
-from ops.charm import CharmBase
-from ops.main import main
-from ops.model import ActiveStatus, MaintenanceStatus
 
 logger = logging.getLogger(__name__)
 
 
-class JujuIntrospectCharm(CharmBase):
+class JujuIntrospectCharm(ops.CharmBase):
     """Operator to control juju-introspect with systemd."""
 
     def __init__(self, *args):
@@ -33,18 +31,18 @@ class JujuIntrospectCharm(CharmBase):
 
     def _install(self, _):
         """Install the juju-introspect systemd unit."""
-        self.unit.status = MaintenanceStatus("installing juju-introspect")
+        self.unit.status = ops.MaintenanceStatus("installing juju-introspect")
         self.juju_introspect.install()
 
     def _start(self, _):
         """Start the juju-introspect systemd unit."""
         self.juju_introspect.start()
         self._open_port()
-        self.unit.status = ActiveStatus()
+        self.unit.status = ops.ActiveStatus()
 
     def _remove(self, _):
         """Remove and stop the juju-introspect systemd unit."""
-        self.unit.status = MaintenanceStatus("removing juju-introspect")
+        self.unit.status = ops.MaintenanceStatus("removing juju-introspect")
         self.juju_introspect.remove()
 
     def _open_port(self) -> bool:
@@ -59,4 +57,4 @@ class JujuIntrospectCharm(CharmBase):
 
 
 if __name__ == "__main__":  # pragma: nocover
-    main(JujuIntrospectCharm)
+    ops.main(JujuIntrospectCharm)
