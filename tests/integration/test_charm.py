@@ -20,7 +20,7 @@ UNIT_0 = f"{INTROSPECT}/0"
 @mark.abort_on_fail
 @mark.skip_if_deployed
 async def test_deploy(ops_test: OpsTest, juju_introspect_charm):
-    await ops_test.model.deploy(await juju_introspect_charm, application_name=INTROSPECT, to="0")
+    await ops_test.model.deploy(juju_introspect_charm, application_name=INTROSPECT, to="0")
     # issuing dummy update_status just to trigger an event
     async with ops_test.fast_forward():
         await ops_test.model.wait_for_idle(apps=[INTROSPECT], status="active", timeout=1000)
