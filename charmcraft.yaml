@@ -1,14 +1,20 @@
-# Learn more about charmcraft.yaml configuration at:
-# https://juju.is/docs/sdk/charmcraft-config
-type: "charm"
-bases:
-  - build-on:
-      - name: "ubuntu"
-        channel: "22.04"
-      - name: "ubuntu"
-        channel: "20.04"
-    run-on:
-      - name: "ubuntu"
-        channel: "22.04"
-      - name: "ubuntu"
-        channel: "20.04"
+name: juju-introspect
+summary: Operator for controlling juju-introspect with systemd
+description: |
+  This simple operator is used to manage the `juju-introspect` tool using systemd.
+
+  The charm installs a systemd unit that starts `juju-introspect`, listening on port 6000. It
+  provides a relation that allows it to be scraped by Parca, or other profiling tools that can
+  consume the golang pprof endpoints.
+
+type: charm
+base: ubuntu@24.04
+platforms:
+  amd64:
+
+parts:
+  charm:
+
+provides:
+  profiling-endpoint:
+    interface: parca_scrape
