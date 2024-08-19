@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 
 from charms.operator_libs_linux.v1 import systemd
+
 from jujuintrospect import JujuIntrospect
 
 logger = logging.getLogger(__name__)
